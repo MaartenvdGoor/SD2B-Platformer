@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        jumpCharge = minJumpForce / JumpMultiplier;
+        jumpCharge = minJumpForce;
     }
 
     // Update is called once per frame
@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
             rigidbody2D.AddForce(new Vector2(dirX * horizontalJumpVelocityModifier, finalJumpCharge), ForceMode2D.Impulse);
             Debug.Log(finalJumpCharge);
             jumpRelease = false;
-            jumpCharge = minJumpForce / JumpMultiplier;
+            jumpCharge = minJumpForce;
         }
     }
 
