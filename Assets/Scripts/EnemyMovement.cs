@@ -23,7 +23,6 @@ public class EnemyMovement : MonoBehaviour
         {
             dirX = -1f;
         }
-        Debug.Log(rng);
     }
 
     // Update is called once per frame
@@ -39,7 +38,7 @@ public class EnemyMovement : MonoBehaviour
         {
 
         }
-        else if (collision.gameObject.CompareTag("Wall"))
+        else if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Enemy"))
         {
             dirX = dirX * -1;
         }

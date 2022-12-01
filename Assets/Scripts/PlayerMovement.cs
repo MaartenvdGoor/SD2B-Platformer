@@ -14,11 +14,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     bool doubleJumpAvailable = true;
     float dirX;
-
+    Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -27,10 +27,18 @@ public class PlayerMovement : MonoBehaviour
 
 
         dirX = Input.GetAxis("Horizontal");
-        
+
+        if (dirX < 0)
+        {
+            transform.eulerAngles = Vector3.up * 180;
+        }
+        else if (dirX > 0)
+        {
+            transform.eulerAngles = Vector3.up * 0;
+        }
 
         transform.Translate(transform.right * dirX * horizontalSpeed * Time.deltaTime);
-
+        animator.SetBool("IsRunning", dirX != 0);
 
         if (Input.GetButtonDown("Jump") && (!isJumping || doubleJumpAvailable))
         {
@@ -64,7 +72,6 @@ public class PlayerMovement : MonoBehaviour
      {
         if (collision.gameObject.layer == 3)
         {
-            Debug.Log("Entered Trigger");
             isJumping = false;
 
         }
@@ -73,7 +80,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.layer == 3)
         {
-            Debug.Log("Entered false");
             isJumping = true;
             doubleJumpAvailable = true;
         }

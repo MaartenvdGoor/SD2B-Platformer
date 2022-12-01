@@ -12,7 +12,11 @@ public class BulletCollision : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Yeet");
-        Destroy(gameObject);    
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+
+            Destroy(collision.gameObject);
+        }
+        //Destroy(gameObject);    
     }
 }

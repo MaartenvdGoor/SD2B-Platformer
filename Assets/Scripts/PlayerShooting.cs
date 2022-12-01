@@ -9,6 +9,7 @@ public class PlayerShooting : MonoBehaviour
 
     private float facingDirx = 1;
     private float facingDiry = 1;
+    public float prevDirx;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,15 +24,19 @@ public class PlayerShooting : MonoBehaviour
 
         if (dirX == -1 || dirX == 1)
         {
+            prevDirx = dirX;
+            Debug.Log(dirX);
             facingDirx = dirX;
         }
         if (dirY == -1 || dirY == 1)
         {
             facingDirx = 0;
             facingDiry = 1;
+
         }
         else if (dirY == 0)
         {
+            facingDirx = prevDirx;
             facingDiry = 0;
         }
 
