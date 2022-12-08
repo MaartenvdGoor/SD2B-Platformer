@@ -7,7 +7,6 @@ public class BulletMovement : MonoBehaviour
     public float speed = 15f;
     public float lifetime = 3f;
     public float dirX = 1f;
-    public float dirY = 1f;
 
 
 
@@ -21,6 +20,5 @@ public class BulletMovement : MonoBehaviour
     void Update()
     {
         transform.Translate(transform.right * dirX * speed * Time.deltaTime);
-        transform.Translate(transform.up * dirY * speed * Time.deltaTime);
     }
 }

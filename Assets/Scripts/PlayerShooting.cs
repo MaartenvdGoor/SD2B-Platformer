@@ -8,44 +8,44 @@ public class PlayerShooting : MonoBehaviour
     public GameObject Bullet;
 
     private float facingDirx = 1;
-    private float facingDiry = 1;
     public float prevDirx;
+    public bool shoot = false;
+
+    Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         float dirX = Input.GetAxisRaw("Horizontal");
-        float dirY = Input.GetAxisRaw("Vertical");
 
-        if (dirX == -1 || dirX == 1)
+        if (dirX != 0)
         {
-            prevDirx = dirX;
-            Debug.Log(dirX);
             facingDirx = dirX;
         }
-        if (dirY == -1 || dirY == 1)
-        {
-            facingDirx = 0;
-            facingDiry = 1;
-
-        }
-        else if (dirY == 0)
-        {
-            facingDirx = prevDirx;
-            facingDiry = 0;
-        }
-
+        
         if (Input.GetButtonDown("Fire1"))
+        {
+            animator.SetBool("IsShooting", true);
+        }
+
+
+
+        if (shoot)
         {
             GameObject spawnedBullet = Instantiate(Bullet, transform.position, Quaternion.identity);
             spawnedBullet.GetComponent<BulletMovement>().dirX = facingDirx;
-            spawnedBullet.GetComponent<BulletMovement>().dirY = facingDiry;
-            
+            shoot = false;
+            animator.SetBool("IsShooting", false);
         }
+    }
+
+    private void FixedUpdate()
+    {
+
     }
 }

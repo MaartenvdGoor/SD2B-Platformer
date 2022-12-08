@@ -12,11 +12,12 @@ public class BulletCollision : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("test");
         if (collision.gameObject.CompareTag("Enemy"))
         {
 
-            Destroy(collision.gameObject);
+            collision.gameObject.GetComponent<EnemyDeath>().Die();
         }
-        //Destroy(gameObject);    
+        Destroy(gameObject);    
     }
 }

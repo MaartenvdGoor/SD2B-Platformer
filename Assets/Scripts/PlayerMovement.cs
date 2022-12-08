@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float horizontalSpeed = 10f;
     public float jumpForce = 10f;
-
+    Rigidbody2D rigidbody2D;
 
     bool jumpRelease = false;
     [SerializeField]
@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -55,20 +56,20 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
-
+        
     private void FixedUpdate()
     {
-        
+        rigidbody2D.velocity = new Vector2(dirX * horizontalSpeed, rigidbody2D.velocity.y);
         if (jumpRelease)
         {
-            Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
+            
             rigidbody2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             jumpRelease = false;
         }
         
 
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
      {
         if (collision.gameObject.layer == 3)
         {
@@ -76,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.layer == 3)
         {
