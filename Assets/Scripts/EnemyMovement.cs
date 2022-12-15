@@ -7,7 +7,7 @@ public class EnemyMovement : MonoBehaviour
     public float speed;
 
     private float dirX = 1f;
-    private Rigidbody2D rigidbody2D;
+    private new Rigidbody2D rigidbody2D;
     private Animator animator;
 
 

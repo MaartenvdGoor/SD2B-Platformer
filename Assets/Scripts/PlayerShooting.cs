@@ -10,11 +10,14 @@ public class PlayerShooting : MonoBehaviour
     private float facingDirx = 1;
     public float prevDirx;
     public bool shoot = false;
+    public AudioClip shooting_Audio;
 
+    AudioSource audioSource;
     Animator animator;
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
     }
 
@@ -35,15 +38,26 @@ public class PlayerShooting : MonoBehaviour
 
 
 
-        if (shoot)
-        {
-            GameObject spawnedBullet = Instantiate(Bullet, transform.position, Quaternion.identity);
-            spawnedBullet.GetComponent<BulletMovement>().dirX = facingDirx;
-            shoot = false;
-            animator.SetBool("IsShooting", false);
-        }
+        //if (shoot)
+        //{
+        //    audioSource.Play();
+        //    GameObject spawnedBullet = Instantiate(Bullet, transform.position, Quaternion.identity);
+        //    spawnedBullet.GetComponent<BulletMovement>().dirX = facingDirx;
+        //    shoot = false;
+        //    animator.SetBool("IsShooting", false);
+        //}
     }
 
+
+    public void Shoot()
+    {
+        audioSource.clip = shooting_Audio;
+        audioSource.Play();
+        GameObject spawnedBullet = Instantiate(Bullet, transform.position, Quaternion.identity);
+        spawnedBullet.GetComponent<BulletMovement>().dirX = facingDirx;
+        shoot = false;
+        animator.SetBool("IsShooting", false);
+    }
     private void FixedUpdate()
     {
 

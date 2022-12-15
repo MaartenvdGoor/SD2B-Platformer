@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    
     public float horizontalSpeed = 10f;
     public float jumpForce = 10f;
-    Rigidbody2D rigidbody2D;
+    new Rigidbody2D rigidbody2D;
+    public AudioClip jumpAudio;
 
+    AudioSource audioSource;
     bool jumpRelease = false;
     [SerializeField]
     bool isJumping = false;
@@ -20,13 +24,18 @@ public class PlayerMovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rigidbody2D = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("quit game");
+            Application.Quit();
+        }
         dirX = Input.GetAxis("Horizontal");
 
         if (dirX < 0)
@@ -51,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
 
             }
             jumpRelease = true;
+            audioSource.clip = jumpAudio;
+            audioSource.Play();
         }
 
 

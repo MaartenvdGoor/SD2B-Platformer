@@ -6,6 +6,10 @@ public class EnemyDeath : MonoBehaviour
 {
     public bool animComplete;
     public List<Transform> respawnPoints = new List<Transform>();
+    public bool IsDead;
+    public int pointsValue;
+    public Score scoreKeeper;
+    
 
     private Animator animator;
     private EnemyMovement enemyMovement;
@@ -16,7 +20,6 @@ public class EnemyDeath : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         enemyMovement = GetComponent<EnemyMovement>();
-        enemyMovement.enabled = true;
     }
 
     // Update is called once per frame
@@ -25,8 +28,6 @@ public class EnemyDeath : MonoBehaviour
         if (animComplete)
         {
             animComplete = false;
-            SpawnEnemy();           
-            Destroy(gameObject);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -34,15 +35,13 @@ public class EnemyDeath : MonoBehaviour
         
     }
 
-    private void SpawnEnemy()
-    {
-        Instantiate(gameObject, respawnPoints[Random.Range(0,respawnPoints.Count)].position,Quaternion.identity);
-    }
-
     public void Die()
     {
+        scoreKeeper.ScorePoints(pointsValue);
         enemyMovement.enabled = false;
         animator.SetBool("EnemyDeath", true);
+        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        IsDead = true;
     }
 
 }

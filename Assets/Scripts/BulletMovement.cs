@@ -19,6 +19,10 @@ public class BulletMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (dirX < 0)
+        {
+            transform.eulerAngles = Vector3.up * 180;
+        }
         transform.Translate(transform.right * dirX * speed * Time.deltaTime);
     }
 }
